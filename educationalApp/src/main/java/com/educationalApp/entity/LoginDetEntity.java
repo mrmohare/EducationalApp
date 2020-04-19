@@ -1,12 +1,14 @@
 package com.educationalApp.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class User {
+public class LoginDetEntity {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
@@ -18,8 +20,12 @@ public class User {
   private String mobile;
   
   private String password;
+  
+  private String role;
 
-  private String createdOn;
+  private Timestamp createdOn;
+  
+  private Timestamp updatedOn;
   
   public Integer getId() {
     return id;
@@ -61,11 +67,27 @@ public void setPassword(String password) {
 	this.password = password;
 }
 
-public String getCreatedOn() {
+public Timestamp getCreatedOn() {
 	return createdOn;
 }
 
-public void setCreatedOn(String createdOn) {
+public void setCreatedOn(Timestamp createdOn) {
 	this.createdOn = createdOn;
+}
+
+public String getRole() {
+	return role;
+}
+
+public void setRole(String role) {
+	this.role = role;
+}
+
+public Timestamp getUpdatedOn() {
+	return updatedOn;
+}
+
+public void setUpdatedOn(Timestamp updatedOn) {
+	this.updatedOn = updatedOn;
 }
 }
