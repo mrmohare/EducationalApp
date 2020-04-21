@@ -8,21 +8,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educationalApp.Model.LoginRequest;
-import com.educationalApp.Model.LoginResponse;
+import com.educationalApp.Model.BasicResponse;
+import com.educationalApp.Model.SignupRequest;
+import com.educationalApp.ServiceImpl.ServiceImplementation;
 
 @RequestMapping("educationalApp/users")
 @RestController
 public class Controller {
 
 	@Autowired
+	ServiceImplementation serviceImpl;
 	
-	
-	@PostMapping("/signUp")
-	public ResponseEntity<LoginResponse> signup(@RequestBody LoginRequest loginRequest){
+	@PostMapping("/signup")
+	public ResponseEntity<BasicResponse> signup(@RequestBody SignupRequest signupRequest){
 		
+		BasicResponse response = serviceImpl.signup(signupRequest);
 		
-		return new ResponseEntity<LoginResponse>(HttpStatus.OK);
+		return new ResponseEntity<BasicResponse>(response,HttpStatus.valueOf(response.getHttpStatusCode()));
 		
 	}
+
+
 }

@@ -2,10 +2,13 @@ package com.educationalApp.entity;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class LoginDetEntity {
@@ -15,6 +18,7 @@ public class LoginDetEntity {
 
   private String fullName;
 
+  @Column(name="email", unique=true)
   private String email;
   
   private String mobile;
