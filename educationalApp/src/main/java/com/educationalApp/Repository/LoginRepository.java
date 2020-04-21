@@ -1,5 +1,5 @@
 package com.educationalApp.Repository;
 
-public class repository {
+public class LoginRepository {
 
 }

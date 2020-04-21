@@ -1,5 +1,5 @@
 package com.educationalApp.ServiceImpl;
 
-public class serviceImplementation {
+public class ServiceImplementation {
 
 }
