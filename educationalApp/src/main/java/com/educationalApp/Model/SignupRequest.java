@@ -2,7 +2,7 @@ package com.educationalApp.Model;
 
 import java.sql.Timestamp;
 
-public class signupRequest {
+public class SignupRequest {
 	
 	private String fullName;
 

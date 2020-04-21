@@ -2,7 +2,7 @@ package com.educationalApp.Model;
 
 import java.sql.Timestamp;
 
-public class loginRequest {
+public class LoginRequest {
 	
 	private String email;
 
