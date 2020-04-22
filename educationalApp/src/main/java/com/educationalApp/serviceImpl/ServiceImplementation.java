@@ -1,4 +1,4 @@
-package com.educationalApp.ServiceImpl;
+package com.educationalApp.serviceImpl;
 
 import java.sql.SQLException;
 import java.sql.Time;
@@ -8,10 +8,10 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.educationalApp.Model.BasicResponse;
-import com.educationalApp.Model.SignupRequest;
-import com.educationalApp.Repository.SignupRepository;
 import com.educationalApp.entity.LoginDetEntity;
+import com.educationalApp.model.BasicResponse;
+import com.educationalApp.model.SignupRequest;
+import com.educationalApp.repository.SignupRepository;
 
 @Service
 public class ServiceImplementation {

@@ -1,21 +1,26 @@
-package com.educationalApp.Model;
+package com.educationalApp.model;
 
 import java.sql.Timestamp;
 
-public class LoginRequest {
+public class SignupRequest {
 	
-	private String email;
+	private String fullName;
 
+	private String email;
+	
 	private String mobile;
 
 	private String password;
 
-	private String role;
-
 	private Timestamp createdOn;
 
-	private Timestamp updatedOn;
-	
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 
 	public String getEmail() {
 		return email;
@@ -41,14 +46,6 @@ public class LoginRequest {
 		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public Timestamp getCreatedOn() {
 		return createdOn;
 	}
@@ -56,13 +53,6 @@ public class LoginRequest {
 	public void setCreatedOn(Timestamp createdOn) {
 		this.createdOn = createdOn;
 	}
+	
 
-	public Timestamp getUpdatedOn() {
-		return updatedOn;
-	}
-
-	public void setUpdatedOn(Timestamp updatedOn) {
-		this.updatedOn = updatedOn;
-	}
-		
 }
