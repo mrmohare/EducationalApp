@@ -1,11 +1,19 @@
 package com.educationalApp.controller;
 
+import java.io.IOException;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.educationalApp.model.BasicResponse;
@@ -19,6 +27,11 @@ public class Controller {
 	@Autowired
 	ServiceImplementation serviceImpl;
 	
+	/**
+	 * Method to register new user
+	 * @param signupRequest
+	 * @return BasicResponse
+	 */
 	@PostMapping("/signup")
 	public ResponseEntity<BasicResponse> signup(@RequestBody SignupRequest signupRequest){
 		
@@ -28,5 +41,21 @@ public class Controller {
 		
 	}
 
-
+	
+	/**
+	 * Method for ForgotPassword
+	 * @param email
+	 * @return BasicResponse
+	 * @throws IOException 
+	 * @throws MessagingException 
+	 * @throws AddressException 
+	 */
+	@GetMapping("/forgotPassword/{email}")
+	public ResponseEntity<BasicResponse> forgotPassword(@PathVariable String email) throws AddressException, MessagingException, IOException{
+		
+		BasicResponse response = serviceImpl.forgotPassword(email);
+		
+		return new ResponseEntity<BasicResponse>(response,HttpStatus.valueOf(response.getHttpStatusCode()));
+		
+	}
 }

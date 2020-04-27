@@ -13,4 +13,6 @@ import com.educationalApp.entity.LoginDetEntity;
  */
 public interface SignupRepository extends JpaRepository<LoginDetEntity, Long>{
 
+	public LoginDetEntity findByEmail(String email);
+
 }
