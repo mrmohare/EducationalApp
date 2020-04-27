@@ -14,25 +14,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.educationalApp.constants.EduAppConstants;
 import com.educationalApp.model.BasicResponse;
+import com.educationalApp.model.LoginRequest;
+import com.educationalApp.model.LoginResponse;
 import com.educationalApp.model.SignupRequest;
 import com.educationalApp.serviceImpl.ServiceImplementation;
 
-@RequestMapping("educationalApp/users")
+//@RequestMapping("educationalApp/users")
 @RestController
 public class Controller {
 
 	@Autowired
 	ServiceImplementation serviceImpl;
+
 	
 	/**
 	 * Method to register new user
 	 * @param signupRequest
 	 * @return BasicResponse
 	 */
-	@PostMapping("/signup")
+	@PostMapping(EduAppConstants.SIGNUP_ENDPOINT)
 	public ResponseEntity<BasicResponse> signup(@RequestBody SignupRequest signupRequest){
 		
 		BasicResponse response = serviceImpl.signup(signupRequest);
@@ -40,8 +45,15 @@ public class Controller {
 		return new ResponseEntity<BasicResponse>(response,HttpStatus.valueOf(response.getHttpStatusCode()));
 		
 	}
-
 	
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<LoginResponse> loginAndCreateAuthenticationToken(@RequestBody LoginRequest loginRequest) throws Exception {
+		
+		LoginResponse response = serviceImpl.login(loginRequest);
+		return new  ResponseEntity<LoginResponse>(response,HttpStatus.valueOf(response.getHttpStatusCode()));
+	}
+		
 	/**
 	 * Method for ForgotPassword
 	 * @param email
@@ -50,7 +62,7 @@ public class Controller {
 	 * @throws MessagingException 
 	 * @throws AddressException 
 	 */
-	@GetMapping("/forgotPassword/{email}")
+	@GetMapping(EduAppConstants.FORGOT_PASSWORD_ENDPOINT)
 	public ResponseEntity<BasicResponse> forgotPassword(@PathVariable String email) throws AddressException, MessagingException, IOException{
 		
 		BasicResponse response = serviceImpl.forgotPassword(email);
@@ -58,4 +70,6 @@ public class Controller {
 		return new ResponseEntity<BasicResponse>(response,HttpStatus.valueOf(response.getHttpStatusCode()));
 		
 	}
+		
+
 }
