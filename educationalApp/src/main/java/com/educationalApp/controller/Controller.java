@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.educationalApp.constants.EduAppConstants;
 import com.educationalApp.model.BasicResponse;
+import com.educationalApp.model.ChangePasswordRequest;
+import com.educationalApp.model.ChangePasswordResponse;
 import com.educationalApp.model.LoginRequest;
 import com.educationalApp.model.LoginResponse;
 import com.educationalApp.model.SignupRequest;
@@ -69,6 +71,14 @@ public class Controller {
 		
 		return new ResponseEntity<BasicResponse>(response,HttpStatus.valueOf(response.getHttpStatusCode()));
 		
+	}
+	
+	@PostMapping(EduAppConstants.CHANGEPASSWORD_ENDPOINT)
+	public ResponseEntity<ChangePasswordResponse> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) throws Exception {
+		
+		ChangePasswordResponse response = serviceImpl.changePassword(changePasswordRequest);
+
+		return new  ResponseEntity<ChangePasswordResponse>(response,HttpStatus.valueOf(response.getHttpStatusCode()));
 	}
 		
 

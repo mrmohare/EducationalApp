@@ -27,9 +27,12 @@ import org.springframework.stereotype.Service;
 import com.educationalApp.config.JwtTokenUtil;
 import com.educationalApp.entity.LoginDetEntity;
 import com.educationalApp.model.BasicResponse;
+import com.educationalApp.model.ChangePasswordRequest;
+import com.educationalApp.model.ChangePasswordResponse;
 import com.educationalApp.model.LoginRequest;
 import com.educationalApp.model.LoginResponse;
 import com.educationalApp.model.SignupRequest;
+import com.educationalApp.repository.ChangePasswordRepository;
 import com.educationalApp.repository.LoginRepository;
 import com.educationalApp.repository.SignupRepository;
 import com.educationalApp.serviceImpl.JwtUserDetailsService;
@@ -43,6 +46,9 @@ public class ServiceImplementation {
 	
 	@Autowired
 	LoginRepository loginRepository;
+
+	@Autowired
+	ChangePasswordRepository changePasswordRepository;
 	
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
@@ -82,13 +88,12 @@ public class ServiceImplementation {
 		
 		LoginDetEntity loginEnt = new LoginDetEntity();
 		LoginResponse response =new LoginResponse();
-		String username=loginRequest.getUsername();
 		
 		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(username);
+				.loadUserByUsername(loginRequest.getUsername());
 		
 		try{
-			loginEnt=loginRepository.findByEmail(username);
+			loginEnt=loginRepository.findByEmail(loginRequest.getUsername());
 			if(loginEnt.getPassword().equals(loginRequest.getPassword())) {
 				response.setHttpStatus("Success");
 				response.setHttpStatusCode(200);
@@ -171,4 +176,40 @@ public class ServiceImplementation {
 		   Transport.send(msg);   
 		}
 
+	
+	public ChangePasswordResponse changePassword(ChangePasswordRequest changePasswordRequest) {
+		
+		LoginDetEntity loginEnt = new LoginDetEntity();
+		ChangePasswordResponse response= new ChangePasswordResponse();
+		
+		loginEnt = changePasswordRepository.findByEmailAndPassword(changePasswordRequest.getEmail(),changePasswordRequest.getCurrentPassword());
+		if(loginEnt != null)
+		{
+			if(changePasswordRequest.getNewPassword().equals(changePasswordRequest.getCurrentPassword())) {
+				response.setHttpStatus("Failure");
+				response.setHttpStatusCode(400);
+				response.setMessage("please enter new password different from current password");
+			}
+			else {
+				int a=changePasswordRepository.updatePassword(changePasswordRequest.getEmail(),changePasswordRequest.getNewPassword());
+				if(a==1)
+				{
+					response.setHttpStatus("Success");
+					response.setHttpStatusCode(200);
+					response.setMessage("Password changed successfully");
+				}
+				else {
+					response.setHttpStatus("Failure");
+					response.setHttpStatusCode(400);
+					response.setMessage("Password is not changed.");
+				}
+			}
+		}
+		else {
+			response.setHttpStatus("Failure");
+			response.setHttpStatusCode(400);
+			response.setMessage("Wrong credentials");
+		}
+		return response;
+	}
 }
